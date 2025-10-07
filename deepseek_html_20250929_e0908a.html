@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenya Online Shop - Secure Payments</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">KenyaShop</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Kenya's Premier Online Store</h1>
+            <p>Secure payments via M-Pesa, PayPal, and Credit Cards</p>
+        </section>
+
+        <section class="products">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300" alt="Product 1">
+                    <h3>Kenyan Coffee</h3>
+                    <p>KSh 1,200</p>
+                    <button class="buy-btn" data-product="1">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300" alt="Product 2">
+                    <h3>Maasai Shuka</h3>
+                    <p>KSh 2,500</p>
+                    <button class="buy-btn" data-product="2">Buy Now</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Complete Your Purchase</h2>
+            <div class="product-summary">
+                <h3 id="productName"></h3>
+                <p id="productPrice"></p>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-option active" data-method="mpesa">
+                    <img src="https://via.placeholder.com/50" alt="M-Pesa">
+                    <span>M-Pesa</span>
+                </div>
+                <div class="payment-option" data-method="paypal">
+                    <img src="https://via.placeholder.com/50" alt="PayPal">
+                    <span>PayPal</span>
+                </div>
+                <div class="payment-option" data-method="card">
+                    <img src="https://via.placeholder.com/50" alt="Credit Card">
+                    <span>Credit/Debit Card</span>
+                </div>
+            </div>
+
+            <!-- M-Pesa Payment Form -->
+            <div id="mpesaForm" class="payment-form">
+                <input type="tel" id="mpesaPhone" placeholder="2547XXXXXXXX" required>
+                <button onclick="processMpesaPayment()">Pay with M-Pesa</button>
+            </div>
+
+            <!-- PayPal Payment Form -->
+            <div id="paypalForm" class="payment-form hidden">
+                <div id="paypal-button-container"></div>
+            </div>
+
+            <!-- Credit Card Payment Form -->
+            <div id="cardForm" class="payment-form hidden">
+                <input type="text" id="cardNumber" placeholder="Card Number" required>
+                <input type="text" id="expiryDate" placeholder="MM/YY" required>
+                <input type="text" id="cvv" placeholder="CVV" required>
+                <button onclick="processCardPayment()">Pay with Card</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+</body>
+</html>
