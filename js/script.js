@@ -70,7 +70,7 @@ function selectPaymentMethod(method) {
     }
 }
 
-// M-Pesa Payment
+// M-Pesa Payment - SIMPLIFIED
 async function processMpesaPayment() {
     const phone = document.getElementById('mpesaPhone').value;
     
@@ -78,118 +78,48 @@ async function processMpesaPayment() {
         alert('Please enter your M-Pesa phone number');
         return;
     }
-
-    try {
-        const response = await fetch('/api/payments/mpesa', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                phone: phone,
-                amount: selectedProduct.price,
-                productId: Object.keys(products).find(key => products[key] === selectedProduct)
-            })
-        });
-
-        const data = await response.json();
-        
-        if (data.success) {
-            alert('M-Pesa prompt sent to your phone. Please enter your PIN to complete payment.');
-            // Poll for payment confirmation
-            checkMpesaPaymentStatus(data.transactionId);
-        } else {
-            alert('Payment failed: ' + data.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while processing your payment');
-    }
-}
-
-async function checkMpesaPaymentStatus(transactionId) {
-    // Implement polling to check payment status
-    const checkStatus = async () => {
-        const response = await fetch(`/api/payments/mpesa/status/${transactionId}`);
-        const data = await response.json();
-        
-        if (data.status === 'completed') {
-            alert('Payment successful! Thank you for your purchase.');
-            closeModal();
-        } else if (data.status === 'failed') {
-            alert('Payment failed. Please try again.');
-        } else {
-            // Continue polling
-            setTimeout(checkStatus, 2000);
-        }
-    };
     
-    checkStatus();
+    alert(`📱 M-Pesa prompt sent to ${phone} for KSh ${selectedProduct.price}\n\n(Simulation: Imagine entering PIN on your phone)`);
+    
+    setTimeout(() => {
+        alert('✅ Payment confirmed! Thank you for your purchase.');
+        closeModal();
+    }, 2000);
 }
 
-// PayPal Integration
+// PayPal Integration - SIMPLIFIED
 function initializePayPal() {
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: (selectedProduct.price / 100).toFixed(2) // Convert to USD
-                    },
-                    description: selectedProduct.name
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Payment completed by ' + details.payer.name.given_name);
-                closeModal();
-            });
-        },
-        onError: function(err) {
-            console.error('PayPal Error:', err);
-            alert('An error occurred with PayPal payment');
-        }
-    }).render('#paypal-button-container');
+    document.getElementById('paypal-button-container').innerHTML = `
+        <button onclick="simulatePayPalPayment()" style="background: #0070ba; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+            Pay with PayPal - KSh ${selectedProduct.price}
+        </button>
+    `;
 }
 
-// Credit Card Payment
-async function processCardPayment() {
-    const cardData = {
-        number: document.getElementById('cardNumber').value,
-        expiry: document.getElementById('expiryDate').value,
-        cvv: document.getElementById('cvv').value
-    };
+function simulatePayPalPayment() {
+    alert(`🌐 Redirecting to PayPal for KSh ${selectedProduct.price}\n\n(Simulation: Imagine logging into PayPal)`);
+    
+    setTimeout(() => {
+        alert('✅ PayPal payment successful! Thank you for your purchase.');
+        closeModal();
+    }, 2000);
+}
 
-    // Basic validation
-    if (!cardData.number || !cardData.expiry || !cardData.cvv) {
+// Credit Card Payment - SIMPLIFIED
+async function processCardPayment() {
+    const cardNumber = document.getElementById('cardNumber').value;
+    const expiry = document.getElementById('expiryDate').value;
+    const cvv = document.getElementById('cvv').value;
+
+    if (!cardNumber || !expiry || !cvv) {
         alert('Please fill all card details');
         return;
     }
 
-    try {
-        const response = await fetch('/api/payments/card', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                card: cardData,
-                amount: selectedProduct.price,
-                product: selectedProduct.name
-            })
-        });
+    alert(`💳 Processing card payment for KSh ${selectedProduct.price}\n\n(Simulation: Imagine bank verification)`);
 
-        const data = await response.json();
-        
-        if (data.success) {
-            alert('Payment successful! Thank you for your purchase.');
-            closeModal();
-        } else {
-            alert('Payment failed: ' + data.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while processing your payment');
-    }
+    setTimeout(() => {
+        alert('✅ Card payment successful! Thank you for your purchase.');
+        closeModal();
+    }, 2000);
 }
