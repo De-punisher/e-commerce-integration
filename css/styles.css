@@ -16,13 +16,13 @@ body {
 /* Header styles - Luxurious Gold & Black */
 header {
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    color: #ffd700;
+    color: #d4af37;
     padding: 1rem 0;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid #ffd700;
+    border-bottom: 2px solid #d4af37;
 }
 
 nav {
@@ -37,8 +37,8 @@ nav {
 .logo {
     font-size: 2.2rem;
     font-weight: bold;
-    color: #ffd700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    color: #d4af37;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     font-family: 'Georgia', serif;
 }
 
@@ -60,24 +60,24 @@ nav {
 }
 
 .nav-links a:hover {
-    color: #ffd700;
-    border: 1px solid #ffd700;
-    background: rgba(255, 215, 0, 0.1);
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    background: rgba(212, 175, 55, 0.1);
 }
 
 .cart-icon {
-    background: #ffd700;
+    background: #d4af37;
     color: #000000 !important;
     padding: 0.5rem 1.5rem !important;
     border-radius: 25px;
     font-weight: bold;
-    border: 2px solid #ffd700;
+    border: 2px solid #d4af37;
 }
 
 .cart-icon:hover {
     background: #000000 !important;
-    color: #ffd700 !important;
-    border: 2px solid #ffd700;
+    color: #d4af37 !important;
+    border: 2px solid #d4af37;
 }
 
 /* Hero section - Wholesale Luxury */
@@ -90,14 +90,14 @@ nav {
     text-align: center;
     padding: 6rem 2rem;
     margin-bottom: 3rem;
-    border-bottom: 3px solid #ffd700;
+    border-bottom: 3px solid #d4af37;
 }
 
 .hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-    color: #ffd700;
+    color: #d4af37;
     font-family: 'Georgia', serif;
 }
 
@@ -115,7 +115,7 @@ nav {
 }
 
 .cta-button {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    background: linear-gradient(135deg, #d4af37, #e6c158);
     color: #000000;
     border: none;
     padding: 15px 40px;
@@ -124,16 +124,16 @@ nav {
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-    border: 2px solid #ffd700;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    border: 2px solid #d4af37;
 }
 
 .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.6);
     background: linear-gradient(135deg, #000000, #1a1a1a);
-    color: #ffd700;
-    border: 2px solid #ffd700;
+    color: #d4af37;
+    border: 2px solid #d4af37;
 }
 
 /* Products section - Luxury Showroom */
@@ -143,7 +143,7 @@ nav {
     padding: 0 2rem;
     background: #ffffff;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
     padding: 3rem 2rem;
 }
 
@@ -161,7 +161,7 @@ nav {
     display: block;
     width: 100px;
     height: 4px;
-    background: linear-gradient(135deg, #ffd700, #000000);
+    background: linear-gradient(135deg, #d4af37, #000000);
     margin: 1rem auto;
     border-radius: 2px;
 }
@@ -185,8 +185,8 @@ nav {
 
 .product-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
-    border: 2px solid #ffd700;
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+    border: 2px solid #d4af37;
 }
 
 .product-card img {
@@ -224,7 +224,7 @@ nav {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    background: linear-gradient(135deg, #d4af37, #e6c158);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -232,8 +232,8 @@ nav {
 
 .buy-btn {
     background: linear-gradient(135deg, #000000, #1a1a1a);
-    color: #ffd700;
-    border: 2px solid #ffd700;
+    color: #d4af37;
+    border: 2px solid #d4af37;
     padding: 12px 24px;
     border-radius: 25px;
     cursor: pointer;
@@ -244,7 +244,7 @@ nav {
 }
 
 .buy-btn:hover {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    background: linear-gradient(135deg, #d4af37, #e6c158);
     color: #000000;
     transform: scale(1.02);
 }
@@ -265,7 +265,7 @@ nav {
     background: #ffffff;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border: 2px solid #ffd700;
+    border: 2px solid #d4af37;
 }
 
 .feature h3 {
@@ -298,9 +298,9 @@ nav {
     border-radius: 20px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
     position: relative;
-    border: 3px solid #ffd700;
+    border: 3px solid #d4af37;
 }
 
 .close {
@@ -316,7 +316,7 @@ nav {
 }
 
 .close:hover {
-    color: #ffd700;
+    color: #d4af37;
 }
 
 .payment-methods {
@@ -337,10 +337,10 @@ nav {
 }
 
 .payment-option.active {
-    border-color: #ffd700;
+    border-color: #d4af37;
     background: #fffae6;
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
 }
 
 .payment-option img {
@@ -366,15 +366,15 @@ nav {
 }
 
 .payment-form input:focus {
-    border-color: #ffd700;
+    border-color: #d4af37;
     outline: none;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 .payment-form button {
     background: linear-gradient(135deg, #000000, #1a1a1a);
-    color: #ffd700;
-    border: 2px solid #ffd700;
+    color: #d4af37;
+    border: 2px solid #d4af37;
     padding: 15px 24px;
     border-radius: 8px;
     cursor: pointer;
@@ -386,7 +386,7 @@ nav {
 }
 
 .payment-form button:hover {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    background: linear-gradient(135deg, #d4af37, #e6c158);
     color: #000000;
     transform: scale(1.02);
 }
@@ -398,11 +398,11 @@ nav {
 /* Footer - Luxury */
 footer {
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    color: #ffd700;
+    color: #d4af37;
     text-align: center;
     padding: 3rem 2rem;
     margin-top: 4rem;
-    border-top: 3px solid #ffd700;
+    border-top: 3px solid #d4af37;
 }
 
 footer p {
