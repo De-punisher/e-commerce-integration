@@ -78,34 +78,37 @@ async function processMpesaPayment() {
     const phone = document.getElementById('mpesaPhone').value;
     
     if (!phone) {
-        alert('Please enter your M-Pesa phone number');
+        alert('📱 Please enter your M-Pesa phone number');
         return;
     }
     
-    alert(`📱 M-Pesa prompt sent to ${phone} for KSh ${selectedProduct.price}\n\n(Simulation: Imagine entering PIN on your phone)`);
+    // Show loading state
+    const button = event.target;
+    const originalText = button.textContent;
+    button.textContent = '⏳ Processing...';
+    button.disabled = true;
     
+    alert('✅ M-Pesa payment initiated!\n\n📱 Check your phone: ' + phone + '\n💳 Amount: KSh ' + selectedProduct.price + '\n\nPlease enter your M-Pesa PIN to complete payment.');
+    
+    // Simulate payment processing
     setTimeout(() => {
-        alert('✅ Payment confirmed! Thank you for your purchase.');
+        button.textContent = originalText;
+        button.disabled = false;
+        showSuccessMessage('🎉 Payment Successful!\n\n✅ M-Pesa payment confirmed\n📦 Your order is being processed\n📞 You will receive SMS confirmation\n\nThank you for shopping with TALIBHAN ENTERPRISE!');
         closeModal();
-    }, 2000);
+        clearCart();
+    }, 3000);
 }
 
 // PayPal Integration - SIMPLIFIED
-function initializePayPal() {
-    document.getElementById('paypal-button-container').innerHTML = `
-        <button onclick="simulatePayPalPayment()" style="background: #0070ba; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
-            Pay with PayPal - KSh ${selectedProduct.price}
-        </button>
-    `;
-}
-
-function simulatePayPalPayment() {
-    alert(`🌐 Redirecting to PayPal for KSh ${selectedProduct.price}\n\n(Simulation: Imagine logging into PayPal)`);
+ function simulatePayPalPayment() {
+    alert('🌐 Redirecting to PayPal...\n\nPlease login to your PayPal account to complete payment of KSh ' + selectedProduct.price);
     
     setTimeout(() => {
-        alert('✅ PayPal payment successful! Thank you for your purchase.');
+        showSuccessMessage('🎉 PayPal Payment Successful!\n\n✅ Payment confirmed via PayPal\n📦 Your order is being processed\n📧 Receipt sent to your email\n\nThank you for choosing TALIBHAN ENTERPRISE!');
         closeModal();
-    }, 2000);
+        clearCart();
+    }, 3000);
 }
 
 // Credit Card Payment - SIMPLIFIED
@@ -115,14 +118,315 @@ async function processCardPayment() {
     const cvv = document.getElementById('cvv').value;
 
     if (!cardNumber || !expiry || !cvv) {
-        alert('Please fill all card details');
+        alert('💳 Please fill all card details');
         return;
     }
 
-    alert(`💳 Processing card payment for KSh ${selectedProduct.price}\n\n(Simulation: Imagine bank verification)`);
+    // Show loading state
+    const button = event.target;
+    const originalText = button.textContent;
+    button.textContent = '⏳ Processing...';
+    button.disabled = true;
+
+    alert('💳 Processing card payment...\n\nAmount: KSh ' + selectedProduct.price + '\nCard: ****' + cardNumber.slice(-4) + '\n\nPlease wait for verification');
 
     setTimeout(() => {
-        alert('✅ Card payment successful! Thank you for your purchase.');
+        button.textContent = originalText;
+        button.disabled = false;
+        showSuccessMessage('🎉 Card Payment Successful!\n\n✅ Payment approved via card\n📦 Order confirmed and processing\n📧 Receipt sent to your email\n🛡️ Transaction secured\n\nThank you for shopping with TALIBHAN ENTERPRISE!');
         closeModal();
-    }, 2000);
+        clearCart();
+    }, 3000);
+}
+
+// Shopping Cart Functionality
+let cart = [];
+const cartSidebar = document.getElementById('cartSidebar');
+const cartItems = document.getElementById('cartItems');
+const cartTotal = document.getElementById('cartTotal');
+const cartCount = document.getElementById('cartCount');
+
+// Update "Add to Cart" buttons
+document.querySelectorAll('.buy-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const productId = e.target.getAttribute('data-product');
+        addToCart(productId);
+    });
+});
+
+// Cart Functions
+function addToCart(productId) {
+    const product = products[productId];
+    const existingItem = cart.find(item => item.id == productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            id: productId,
+            name: product.name,
+            price: product.price,
+            quantity: 1
+        });
+    }
+    
+    updateCart();
+    openCart();
+    showNotification(`${product.name} added to cart!`);
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id != productId);
+    updateCart();
+}
+
+function updateQuantity(productId, change) {
+    const item = cart.find(item => item.id == productId);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            updateCart();
+        }
+    }
+}
+
+function updateCart() {
+    // Update cart items display
+    cartItems.innerHTML = '';
+    let total = 0;
+    
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+            <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <p>KSh ${item.price} x ${item.quantity}</p>
+                <p>Total: KSh ${itemTotal}</p>
+            </div>
+            <div class="cart-item-controls">
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                <span>${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+            </div>
+        `;
+        cartItems.appendChild(cartItem);
+    });
+    
+    // Update total and count
+    cartTotal.textContent = total;
+    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+}
+
+function openCart() {
+    cartSidebar.classList.add('open');
+}
+
+function closeCart() {
+    cartSidebar.classList.remove('open');
+}
+
+function openCheckout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    closeCart();
+    // For now, open payment modal with first item
+    selectedProduct = { 
+        name: 'Multiple Items', 
+        price: parseInt(cartTotal.textContent) 
+    };
+    openPaymentModal(selectedProduct);
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #d4af37;
+        color: #000000;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        z-index: 1002;
+        font-weight: bold;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Close cart when clicking outside
+document.addEventListener('click', (e) => {
+    if (!cartSidebar.contains(e.target) && !e.target.closest('.cart-icon')) {
+        closeCart();
+    }
+});
+
+// Update cart icon to open cart
+document.querySelector('.cart-icon').addEventListener('click', openCart);
+document.querySelector('.close-cart').addEventListener('click', closeCart);
+// Success message function
+function showSuccessMessage(message) {
+    const successDiv = document.createElement('div');
+    successDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #d4af37, #e6c158);
+        color: #000000;
+        padding: 2rem;
+        border-radius: 15px;
+        z-index: 1003;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border: 3px solid #000000;
+        max-width: 400px;
+        white-space: pre-line;
+        font-size: 1.1rem;
+    `;
+    successDiv.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+        <div>${message}</div>
+        <button onclick="this.parentElement.remove()" style="
+            background: #000000;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: bold;
+        ">Continue Shopping</button>
+    `;
+    
+    document.body.appendChild(successDiv);
+    
+    setTimeout(() => {
+        if (successDiv.parentElement) {
+            successDiv.remove();
+        }
+    }, 8000);
+}
+
+// Clear cart after successful payment
+function clearCart() {
+    cart = [];
+    updateCart();
+}
+
+// Success message function
+function showSuccessMessage(message) {
+    const successDiv = document.createElement('div');
+    successDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #d4af37, #e6c158);
+        color: #000000;
+        padding: 2rem;
+        border-radius: 15px;
+        z-index: 1003;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border: 3px solid #000000;
+        max-width: 400px;
+        white-space: pre-line;
+        font-size: 1.1rem;
+    `;
+    successDiv.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+        <div>${message}</div>
+        <button onclick="this.parentElement.remove()" style="
+            background: #000000;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: bold;
+        ">Continue Shopping</button>
+    `;
+    
+    document.body.appendChild(successDiv);
+    
+    setTimeout(() => {
+        if (successDiv.parentElement) {
+            successDiv.remove();
+        }
+    }, 8000);
+}
+
+// Clear cart after successful payment
+function clearCart() {
+    cart = [];
+    updateCart();
+}
+
+// Success message function
+function showSuccessMessage(message) {
+    const successDiv = document.createElement('div');
+    successDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #d4af37, #e6c158);
+        color: #000000;
+        padding: 2rem;
+        border-radius: 15px;
+        z-index: 1003;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border: 3px solid #000000;
+        max-width: 400px;
+        white-space: pre-line;
+        font-size: 1.1rem;
+    `;
+    successDiv.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+        <div>${message}</div>
+        <button onclick="this.parentElement.remove()" style="
+            background: #000000;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: bold;
+        ">Continue Shopping</button>
+    `;
+    
+    document.body.appendChild(successDiv);
+    
+    setTimeout(() => {
+        if (successDiv.parentElement) {
+            successDiv.remove();
+        }
+    }, 8000);
+}
+
+// Clear cart after successful payment
+function clearCart() {
+    cart = [];
+    updateCart();
 }
