@@ -173,7 +173,19 @@
     </footer>
 
     <script src="js/script.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/app.js"></script>
+    <!-- Shopping Cart Sidebar -->
+<div id="cartSidebar" class="cart-sidebar">
+    <div class="cart-header">
+        <h3>🛒 Your Cart</h3>
+        <span class="close-cart">&times;</span>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <!-- Cart items will appear here -->
+    </div>
+    <div class="cart-total">
+        <strong>Total: KSh <span id="cartTotal">0</span></strong>
+        <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
+    </div>
+</div>
 </body>
 </html>
