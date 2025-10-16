@@ -1,11 +1,11 @@
 // Product data - TALIBHAN ENTERPRISE
 const products = {
-    1: { name: "Premium Kenyan Coffee", price: 1200, category: "Beverages" },
-    2: { name: "Samsung Galaxy Tablet", price: 2500, category: "Clothing" },
-    3: { name: "Wireless Bluetooth Headphones", price: 1800, category: "Art" },
-    4: { name: "Luxury Sofa-Bed", price: 900, category: "Food" },
-    5: { name: "Kenyan Tea Gift Box", price: 1500, category: "Beverages" },
-    6: { name: "Beaded Jewelry Set", price: 1100, category: "Accessories" }
+    1: { name: "Premium Kenyan Coffee", price: 1850, category: "Beverages" },
+    2: { name: "Samsung Galaxy Tablet", price: 28999, category: "Clothing" },
+    3: { name: "Wireless Bluetooth Headphones", price: 4299, category: "Art" },
+    4: { name: "Modern Coffee Table", price: 7499, category: "Food" },
+    5: { name: "Kenyan Tea Gift Box", price: 2199, category: "Beverages" },
+    6: { name: "Beaded Jewelry Set", price: 1650, category: "Accessories" }
 };
 // DOM Elements
 const modal = document.getElementById('paymentModal');
