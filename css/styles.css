@@ -8,19 +8,21 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
     color: #333;
+    min-height: 100vh;
 }
 
-/* Header styles */
+/* Header styles - Luxurious Gold & Black */
 header {
-    background: linear-gradient(135deg, #1a472a 0%, #2d5a3c 100%);
-    color: white;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    color: #ffd700;
     padding: 1rem 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-bottom: 2px solid #ffd700;
 }
 
 nav {
@@ -33,10 +35,11 @@ nav {
 }
 
 .logo {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: bold;
     color: #ffd700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    font-family: 'Georgia', serif;
 }
 
 .nav-links {
@@ -47,43 +50,55 @@ nav {
 }
 
 .nav-links a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
     border-radius: 5px;
+    border: 1px solid transparent;
 }
 
 .nav-links a:hover {
     color: #ffd700;
-    background: rgba(255,255,255,0.1);
+    border: 1px solid #ffd700;
+    background: rgba(255, 215, 0, 0.1);
 }
 
 .cart-icon {
     background: #ffd700;
-    color: #1a472a !important;
-    padding: 0.5rem 1rem !important;
+    color: #000000 !important;
+    padding: 0.5rem 1.5rem !important;
     border-radius: 25px;
     font-weight: bold;
+    border: 2px solid #ffd700;
 }
 
-/* Hero section */
+.cart-icon:hover {
+    background: #000000 !important;
+    color: #ffd700 !important;
+    border: 2px solid #ffd700;
+}
+
+/* Hero section - Wholesale Luxury */
 .hero {
-    background: linear-gradient(135deg, rgba(26,71,42,0.9) 0%, rgba(45,90,60,0.9) 100%), 
-                url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&h=600&fit=crop');
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(26, 26, 26, 0.9) 100%), 
+                url('https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=1200&h=600&fit=crop');
     background-size: cover;
     background-position: center;
-    color: white;
+    color: #ffffff;
     text-align: center;
     padding: 6rem 2rem;
     margin-bottom: 3rem;
+    border-bottom: 3px solid #ffd700;
 }
 
 .hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    color: #ffd700;
+    font-family: 'Georgia', serif;
 }
 
 .hero-content p {
@@ -96,11 +111,12 @@ nav {
     font-size: 1.1rem !important;
     opacity: 0.8 !important;
     margin-bottom: 2rem !important;
+    color: #ffffff !important;
 }
 
 .cta-button {
     background: linear-gradient(135deg, #ffd700, #ffed4e);
-    color: #1a472a;
+    color: #000000;
     border: none;
     padding: 15px 40px;
     font-size: 1.2rem;
@@ -108,27 +124,36 @@ nav {
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    border: 2px solid #ffd700;
 }
 
 .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255,215,0,0.4);
+    box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: #ffd700;
+    border: 2px solid #ffd700;
 }
 
-/* Products section */
+/* Products section - Luxury Showroom */
 .products {
     max-width: 1200px;
     margin: 0 auto 4rem;
     padding: 0 2rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+    padding: 3rem 2rem;
 }
 
 .products h2 {
     text-align: center;
     margin-bottom: 3rem;
-    color: #1a472a;
+    color: #000000;
     font-size: 2.8rem;
     position: relative;
+    font-family: 'Georgia', serif;
 }
 
 .products h2::after {
@@ -136,7 +161,7 @@ nav {
     display: block;
     width: 100px;
     height: 4px;
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    background: linear-gradient(135deg, #ffd700, #000000);
     margin: 1rem auto;
     border-radius: 2px;
 }
@@ -149,17 +174,19 @@ nav {
 }
 
 .product-card {
-    background: white;
+    background: #f8f8f8;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
+    border: 2px solid transparent;
 }
 
 .product-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+    border: 2px solid #ffd700;
 }
 
 .product-card img {
@@ -175,12 +202,14 @@ nav {
 
 .product-info {
     padding: 1.5rem;
+    background: #ffffff;
 }
 
 .product-card h3 {
-    color: #1a472a;
+    color: #000000;
     margin-bottom: 0.5rem;
     font-size: 1.4rem;
+    font-weight: 600;
 }
 
 .product-desc {
@@ -191,16 +220,20 @@ nav {
 }
 
 .price {
-    color: #e74c3c;
+    color: #000000;
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .buy-btn {
-    background: linear-gradient(135deg, #1a472a, #2d5a3c);
-    color: white;
-    border: none;
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: #ffd700;
+    border: 2px solid #ffd700;
     padding: 12px 24px;
     border-radius: 25px;
     cursor: pointer;
@@ -211,7 +244,8 @@ nav {
 }
 
 .buy-btn:hover {
-    background: linear-gradient(135deg, #2d5a3c, #3d6b4f);
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #000000;
     transform: scale(1.02);
 }
 
@@ -228,18 +262,23 @@ nav {
 .feature {
     text-align: center;
     padding: 2rem;
-    background: white;
+    background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ffd700;
 }
 
 .feature h3 {
-    color: #1a472a;
+    color: #000000;
     margin-bottom: 1rem;
     font-size: 1.3rem;
 }
 
-/* Modal styles */
+.feature p {
+    color: #666;
+}
+
+/* Modal styles - Luxury */
 .modal {
     display: none;
     position: fixed;
@@ -248,23 +287,24 @@ nav {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
 }
 
 .modal-content {
-    background-color: white;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
     margin: 5% auto;
     padding: 2.5rem;
     border-radius: 20px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
     position: relative;
+    border: 3px solid #ffd700;
 }
 
 .close {
-    color: #aaa;
+    color: #000000;
     float: right;
     font-size: 32px;
     font-weight: bold;
@@ -272,10 +312,11 @@ nav {
     position: absolute;
     right: 1.5rem;
     top: 1rem;
+    transition: color 0.3s ease;
 }
 
 .close:hover {
-    color: #e74c3c;
+    color: #ffd700;
 }
 
 .payment-methods {
@@ -292,12 +333,14 @@ nav {
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
+    background: #ffffff;
 }
 
 .payment-option.active {
-    border-color: #1a472a;
-    background: #f8fff8;
+    border-color: #ffd700;
+    background: #fffae6;
     transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
 }
 
 .payment-option img {
@@ -319,17 +362,19 @@ nav {
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    background: #ffffff;
 }
 
 .payment-form input:focus {
-    border-color: #1a472a;
+    border-color: #ffd700;
     outline: none;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
 .payment-form button {
-    background: linear-gradient(135deg, #1a472a, #2d5a3c);
-    color: white;
-    border: none;
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: #ffd700;
+    border: 2px solid #ffd700;
     padding: 15px 24px;
     border-radius: 8px;
     cursor: pointer;
@@ -341,7 +386,8 @@ nav {
 }
 
 .payment-form button:hover {
-    background: linear-gradient(135deg, #2d5a3c, #3d6b4f);
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #000000;
     transform: scale(1.02);
 }
 
@@ -349,13 +395,14 @@ nav {
     display: none;
 }
 
-/* Footer */
+/* Footer - Luxury */
 footer {
-    background: linear-gradient(135deg, #1a472a 0%, #2d5a3c 100%);
-    color: white;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    color: #ffd700;
     text-align: center;
     padding: 3rem 2rem;
     margin-top: 4rem;
+    border-top: 3px solid #ffd700;
 }
 
 footer p {
