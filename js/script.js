@@ -3,7 +3,7 @@ const products = {
     1: { name: "Premium Kenyan Coffee", price: 1200, category: "Beverages" },
     2: { name: "Samsung Galaxy Tablet", price: 2500, category: "Clothing" },
     3: { name: "Wireless Bluetooth Headphones", price: 1800, category: "Art" },
-    4: { name: "Smartphone Power Bank", price: 900, category: "Food" },
+    4: { name: "Luxury Sofa-Bed", price: 900, category: "Food" },
     5: { name: "Kenyan Tea Gift Box", price: 1500, category: "Beverages" },
     6: { name: "Beaded Jewelry Set", price: 1100, category: "Accessories" }
 };
