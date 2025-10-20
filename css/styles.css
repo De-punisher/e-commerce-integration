@@ -186,6 +186,59 @@ nav {
     color: #6c757d;
     font-style: italic;
 }
+/* Category Filter Styles */
+.category-filters {
+    padding: 1.5rem 0;
+    background: rgba(184, 134, 11, 0.05);
+    border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.filter-btn {
+    padding: 0.8rem 1.5rem;
+    background: white;
+    border: 2px solid #b8860b;
+    border-radius: 25px;
+    color: #b8860b;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.filter-btn:hover {
+    background: #b8860b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #b8860b, #8b0000);
+    color: white;
+    border-color: #8b0000;
+    box-shadow: 0 4px 15px rgba(184, 134, 11, 0.4);
+}
+
+/* Responsive filters */
+@media (max-width: 768px) {
+    .filter-buttons {
+        gap: 0.5rem;
+    }
+    
+    .filter-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
 
 /* Search highlight effect */
 .product.highlight {

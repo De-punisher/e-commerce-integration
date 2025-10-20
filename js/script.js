@@ -265,7 +265,87 @@ function updateCart() {
             cartItems.appendChild(cartItem);
         });
     }
+    // Category Filter Functionality
+function initializeCategoryFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const products = document.querySelectorAll('.product');
     
+    function filterProducts(category) {
+        products.forEach(product => {
+            const productCategory = product.dataset.category;
+            
+            if (category === 'all' || productCategory === category) {
+                product.style.display = 'block';
+                product.classList.add('highlight');
+                setTimeout(() => product.classList.remove('highlight'), 500);
+            } else {
+                product.style.display = 'none';
+            }
+        });
+        
+        // Update results count
+        const visibleCount = document.querySelectorAll('.product[style="display: block"]').length;
+        const resultsCount = document.getElementById('resultsCount');
+        if (resultsCount) {
+            if (category === 'all') {
+                resultsCount.textContent = `Showing all ${visibleCount} products`;
+            } else {
+                resultsCount.textContent = `Showing ${visibleCount} ${category} product${visibleCount !== 1 ? 's' : ''}`;
+            }
+        }
+        
+        // Update active button
+        filterButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.category === category) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    // Add click events to filter buttons
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            filterProducts(category);
+        });
+    });
+    
+    // Initialize with all products showing
+    filterProducts('all');
+    
+    console.log('Category filters initialized');
+}
+
+// Update your existing search to work with filters
+function updateSearchWithFilters() {
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    // When searching, reset to "all" filter
+    searchInput.addEventListener('input', () => {
+        filterButtons.forEach(btn => {
+            if (btn.dataset.category === 'all') {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    });
+}
+// Update your existing initializeSearch function or add this:
+function initializeAllFeatures() {
+    initializeSearch();
+    initializeCategoryFilters();
+    updateSearchWithFilters();
+}
+
+// Replace your existing DOMContentLoaded listener with:
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAllFeatures);
+} else {
+    initializeAllFeatures();
+}
     // Update total and count
     if (cartTotal) {
         cartTotal.textContent = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
