@@ -379,3 +379,476 @@ window.updateQuantity = updateQuantity;
 window.removeFromCart = removeFromCart;
 window.addToCart = addToCart;
 window.openCheckout = openCheckout;
+
+// ===== SEARCH FUNCTIONALITY =====
+function performSearch() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+        clearSearchResults();
+        return;
+    }
+    
+    const results = searchProducts(searchTerm);
+    displaySearchResults(results);
+}
+
+function searchProducts(searchTerm) {
+    return Object.values(products).filter(product => 
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.category.toLowerCase().includes(searchTerm) ||
+        product.price.toString().includes(searchTerm)
+    );
+}
+
+function displaySearchResults(results) {
+    const searchResults = document.getElementById('searchResults') || createSearchResultsContainer();
+    
+    if (results.length === 0) {
+        searchResults.innerHTML = '<div class="search-result-item">No products found for "' + document.getElementById('searchInput').value + '"</div>';
+    } else {
+        searchResults.innerHTML = results.map(product => {
+            const productId = Object.keys(products).find(key => products[key] === product);
+            return `
+                <div class="search-result-item" onclick="selectSearchResult(${productId})">
+                    <div class="search-result-info">
+                        <h4>${product.name}</h4>
+                        <p>KSh ${product.price}</p>
+                        <small>${product.category}</small>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    searchResults.style.display = 'block';
+}
+
+function createSearchResultsContainer() {
+    const container = document.getElementById('searchResults');
+    return container; // Already exists in HTML
+}
+
+function selectSearchResult(productId) {
+    document.getElementById('searchInput').value = '';
+    clearSearchResults();
+    addToCart(productId);
+}
+
+function clearSearchResults() {
+    const searchResults = document.getElementById('searchResults');
+    if (searchResults) {
+        searchResults.style.display = 'none';
+    }
+}
+
+// Real-time search
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', performSearch);
+    }
+});
+
+// Close search results when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+        clearSearchResults();
+    }
+});
+
+// ===== LOGIN & REGISTER FUNCTIONALITY =====
+function showLogin() {
+    document.getElementById('loginModal').style.display = 'block';
+    document.getElementById('registerModal').style.display = 'none';
+}
+
+function showRegister() {
+    document.getElementById('registerModal').style.display = 'block';
+    document.getElementById('loginModal').style.display = 'none';
+}
+
+function closeLogin() {
+    document.getElementById('loginModal').style.display = 'none';
+}
+
+function closeRegister() {
+    document.getElementById('registerModal').style.display = 'none';
+}
+
+// Login form handling
+document.addEventListener('DOMContentLoaded', function() {
+    // Login form
+    const loginForm = document.querySelector('.login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            // Simulate login (in real app, this would call an API)
+            if (email && password) {
+                showSuccessMessage('✅ Login successful! Welcome back to TALIBHAN ENTERPRISE.');
+                closeLogin();
+                updateUserStatus(true);
+            } else {
+                alert('Please enter both email and password.');
+            }
+        });
+    }
+    
+    // Register form
+    const registerForm = document.querySelector('.register-form');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelectorAll('input[type="password"]')[0].value;
+            const confirmPassword = this.querySelectorAll('input[type="password"]')[1].value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (name && email && password) {
+                showSuccessMessage('🎉 Account created successfully! Welcome to TALIBHAN ENTERPRISE.');
+                closeRegister();
+                updateUserStatus(true, name);
+            } else {
+                alert('Please fill all fields.');
+            }
+        });
+    }
+    
+    // Close modal events
+    const closeLoginBtn = document.querySelector('.close-login');
+    const closeRegisterBtn = document.querySelector('.close-register');
+    
+    if (closeLoginBtn) closeLoginBtn.addEventListener('click', closeLogin);
+    if (closeRegisterBtn) closeRegisterBtn.addEventListener('click', closeRegister);
+    
+    // Close modals when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target === document.getElementById('loginModal')) closeLogin();
+        if (e.target === document.getElementById('registerModal')) closeRegister();
+    });
+});
+
+function updateUserStatus(loggedIn, userName = '') {
+    const loginBtn = document.querySelector('.login-btn');
+    if (loginBtn && loggedIn) {
+        loginBtn.innerHTML = `👤 ${userName || 'Account'}`;
+        loginBtn.style.background = 'linear-gradient(135deg, #000000, #1a1a1a)';
+        loginBtn.style.color = '#d4af37';
+        loginBtn.onclick = function() { showAccountMenu(); };
+    }
+}
+
+function showAccountMenu() {
+    alert('Account menu would open here with: Order History, Profile, Logout etc.');
+}
+
+// ===== PRODUCT REVIEWS FUNCTIONALITY =====
+function addProductReview(productId, rating, comment) {
+    // In a real app, this would save to a database
+    console.log(`Review added for product ${productId}: ${rating} stars - ${comment}`);
+    showSuccessMessage('📝 Thank you for your review!');
+}
+
+// ===== ENHANCE EXISTING FUNCTIONALITY =====
+// Add review capability to existing products
+function showReviewModal(productId) {
+    const product = products[productId];
+    if (!product) return;
+    
+    const reviewHTML = `
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Review ${product.name}</h2>
+            <div class="review-form">
+                <div class="rating-stars">
+                    <span onclick="setRating(1)">★</span>
+                    <span onclick="setRating(2)">★</span>
+                    <span onclick="setRating(3)">★</span>
+                    <span onclick="setRating(4)">★</span>
+                    <span onclick="setRating(5)">★</span>
+                </div>
+                <textarea placeholder="Share your experience with this product..." rows="4"></textarea>
+                <button onclick="submitReview(${productId})">Submit Review</button>
+            </div>
+        </div>
+    `;
+    
+    // You can implement this modal similarly to payment modal
+    alert('Review feature would open here for product: ' + product.name);
+}
+
+// ===== GLOBAL FUNCTION DECLARATIONS =====
+window.performSearch = performSearch;
+window.selectSearchResult = selectSearchResult;
+window.showLogin = showLogin;
+window.showRegister = showRegister;
+window.closeLogin = closeLogin;
+window.closeRegister = closeRegister;
+
+// ===== PRODUCT FILTERS FUNCTIONALITY =====
+function initializeFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons in the same group
+            const parent = this.parentElement;
+            parent.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Apply filters
+            applyFilters();
+        });
+    });
+}
+
+function applyFilters() {
+    const activeCategory = document.querySelector('.category-filters .filter-btn.active').dataset.category;
+    const activePrice = document.querySelector('.price-filters .filter-btn.active').dataset.price;
+    
+    const filteredProducts = Object.values(products).filter(product => {
+        // Category filter
+        const categoryMatch = activeCategory === 'all' || 
+                            product.category.toLowerCase() === activeCategory;
+        
+        // Price filter
+        let priceMatch = true;
+        if (activePrice !== 'all') {
+            if (activePrice === '0-2000') {
+                priceMatch = product.price <= 2000;
+            } else if (activePrice === '2000-10000') {
+                priceMatch = product.price > 2000 && product.price <= 10000;
+            } else if (activePrice === '10000+') {
+                priceMatch = product.price > 10000;
+            }
+        }
+        
+        return categoryMatch && priceMatch;
+    });
+    
+    displayFilteredProducts(filteredProducts);
+    updateProductCount(filteredProducts.length);
+}
+
+function displayFilteredProducts(filteredProducts) {
+    const productGrid = document.querySelector('.product-grid');
+    if (!productGrid) return;
+    
+    productGrid.innerHTML = filteredProducts.map(product => {
+        const productId = Object.keys(products).find(key => products[key] === product);
+        return `
+            <div class="product-card">
+                <img src="${getProductImage(productId)}" alt="${product.name}">
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p class="product-desc">${getProductDescription(productId)}</p>
+                    <p class="price">KSh ${product.price}</p>
+                    <button class="buy-btn" data-product="${productId}">Add to Cart</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    // Reattach event listeners to new buttons
+    reattachCartEventListeners();
+}
+
+function getProductImage(productId) {
+    const images = {
+        1: "https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=400&h=300&fit=crop",
+        2: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=300&fit=crop",
+        3: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
+        4: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&h=300&fit=crop",
+        5: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&h=300&fit=crop",
+        6: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop"
+    };
+    return images[productId] || "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop";
+}
+
+function getProductDescription(productId) {
+    const descriptions = {
+        1: "Freshly roasted Arabica coffee beans",
+        2: "10-inch Android tablet with stylus",
+        3: "Noise cancelling over-ear headphones",
+        4: "Modern glass top coffee table with storage",
+        5: "Premium Kenyan tea leaves gift package",
+        6: "Beautiful handmade African bead jewelry"
+    };
+    return descriptions[productId] || "Premium quality product";
+}
+
+function updateProductCount(count) {
+    const productCount = document.getElementById('productCount');
+    if (productCount) {
+        productCount.textContent = `${count} product${count !== 1 ? 's' : ''}`;
+    }
+}
+
+function clearAllFilters() {
+    // Reset category filter
+    const categoryButtons = document.querySelectorAll('.category-filters .filter-btn');
+    categoryButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.category === 'all') {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Reset price filter
+    const priceButtons = document.querySelectorAll('.price-filters .filter-btn');
+    priceButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.price === 'all') {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Show all products
+    applyFilters();
+}
+
+function reattachCartEventListeners() {
+    const buyButtons = document.querySelectorAll('.buy-btn');
+    buyButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const productId = e.target.getAttribute('data-product');
+            addToCart(productId);
+        });
+    });
+}
+
+// Initialize filters when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFilters();
+});
+
+// ===== UPDATE GLOBAL FUNCTIONS =====
+window.clearAllFilters = clearAllFilters;
+// ===== PRODUCT REVIEWS SYSTEM =====
+let currentReviewProductId = null;
+let currentRating = 0;
+
+function showReviewModal(productId) {
+    currentReviewProductId = productId;
+    currentRating = 0;
+    
+    const product = products[productId];
+    if (!product) return;
+    
+    // Create review modal
+    const reviewModal = document.createElement('div');
+    reviewModal.className = 'modal review-modal';
+    reviewModal.id = 'reviewModal';
+    reviewModal.innerHTML = `
+        <div class="modal-content">
+            <span class="close" onclick="closeReviewModal()">&times;</span>
+            <h2>Review ${product.name}</h2>
+            <p>Share your experience with this product</p>
+            
+            <div class="rating-input">
+                <span class="rating-star" onclick="setRating(1)">★</span>
+                <span class="rating-star" onclick="setRating(2)">★</span>
+                <span class="rating-star" onclick="setRating(3)">★</span>
+                <span class="rating-star" onclick="setRating(4)">★</span>
+                <span class="rating-star" onclick="setRating(5)">★</span>
+            </div>
+            
+            <textarea class="review-textarea" placeholder="What did you like about this product? Any suggestions for improvement?" rows="4"></textarea>
+            
+            <button class="submit-review-btn" onclick="submitReview()">Submit Review</button>
+        </div>
+    `;
+    
+    document.body.appendChild(reviewModal);
+    reviewModal.style.display = 'block';
+    
+    // Close modal when clicking outside
+    reviewModal.addEventListener('click', function(e) {
+        if (e.target === reviewModal) {
+            closeReviewModal();
+        }
+    });
+}
+
+function setRating(rating) {
+    currentRating = rating;
+    const stars = document.querySelectorAll('.rating-star');
+    
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+function submitReview() {
+    const reviewText = document.querySelector('.review-textarea').value.trim();
+    
+    if (currentRating === 0) {
+        alert('Please select a rating before submitting your review.');
+        return;
+    }
+    
+    if (!reviewText) {
+        alert('Please write a review before submitting.');
+        return;
+    }
+    
+    // In a real app, this would save to a database
+    console.log(`Review submitted for product ${currentReviewProductId}:`, {
+        rating: currentRating,
+        review: reviewText,
+        date: new Date().toISOString()
+    });
+    
+    showSuccessMessage('📝 Thank you for your review! Your feedback helps other customers.');
+    closeReviewModal();
+    
+    // Update product rating display (simulated)
+    updateProductRating(currentReviewProductId, currentRating);
+}
+
+function closeReviewModal() {
+    const reviewModal = document.getElementById('reviewModal');
+    if (reviewModal) {
+        reviewModal.remove();
+    }
+}
+
+function updateProductRating(productId, newRating) {
+    // Simulate updating the product's average rating
+    // In a real app, this would calculate from all reviews
+    const productCard = document.querySelector(`[data-product="${productId}"]`).closest('.product-card');
+    if (productCard) {
+        const ratingElement = productCard.querySelector('.rating');
+        if (ratingElement) {
+            // Simple simulation - just show the new rating
+            const stars = '★'.repeat(newRating) + '☆'.repeat(5 - newRating);
+            ratingElement.innerHTML = `${stars} <span class="rating-count">(${Math.floor(Math.random() * 50) + 1})</span>`;
+        }
+    }
+}
+
+// Initialize review buttons
+function initializeReviewButtons() {
+    // Buttons are already initialized via onclick attributes
+}
+
+// Add to global functions
+window.showReviewModal = showReviewModal;
+window.setRating = setRating;
+window.closeReviewModal = closeReviewModal;

@@ -25,11 +25,18 @@
     <header>
         <nav>
             <div class="logo">TALIBHAN ENTERPRISE</div>
-            <ul>
+<!-- ADD THIS SEARCH CONTAINER IN YOUR NAV -->
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+    <button onclick="performSearch()" class="search-btn">🔍</button>
+    <div id="searchResults" class="search-results"></div>
+</div>
+            <ul class="nav-links">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Products</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
+                 <li><a href="#" class="login-btn" onclick="showLogin()">👤 Login</a></li>
                 <li><a href="#" class="cart-icon">🛒 Cart <span id="cart-count">0</span></a></li>
             </ul>
         </nav>
@@ -47,6 +54,34 @@
 
         <section class="products">
             <h2>Featured Products</h2>
+            <!-- Product Filters -->
+<div class="filters-section">
+    <div class="filter-group">
+        <h3>Filter by Category</h3>
+        <div class="category-filters">
+            <button class="filter-btn active" data-category="all">All Products</button>
+            <button class="filter-btn" data-category="electronics">Electronics</button>
+            <button class="filter-btn" data-category="furniture">Furniture</button>
+            <button class="filter-btn" data-category="beverages">Beverages</button>
+            <button class="filter-btn" data-category="accessories">Accessories</button>
+        </div>
+    </div>
+    
+    <div class="filter-group">
+        <h3>Price Range</h3>
+        <div class="price-filters">
+            <button class="filter-btn" data-price="all">All Prices</button>
+            <button class="filter-btn" data-price="0-2000">Under KSh 2,000</button>
+            <button class="filter-btn" data-price="2000-10000">KSh 2,000 - 10,000</button>
+            <button class="filter-btn" data-price="10000+">Over KSh 10,000</button>
+        </div>
+    </div>
+    
+    <div class="filter-stats">
+        <span id="productCount">6 products</span>
+        <button class="clear-filters" onclick="clearAllFilters()">Clear Filters</button>
+    </div>
+</div>
             <div class="product-grid">
                 <div class="product-card">
                     <img src="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=400&h=300&fit=crop" alt="Premium Kenyan Coffee">
@@ -54,6 +89,10 @@
                         <h3>Premium Kenyan Coffee</h3>
                         <p class="product-desc">Freshly roasted Arabica coffee beans</p>
                         <p class="price">KSh 1,850</p>
+                        <div class="product-reviews">
+    <div class="rating">★★★★☆ <span class="rating-count">(24)</span></div>
+    <button class="review-btn" onclick="showReviewModal(1)">Write Review</button>
+</div>
                         <button class="buy-btn" data-product="1">Add to Cart</button>
                     </div>
                 </div>
@@ -63,6 +102,10 @@
                         <h3>Samsung Galaxy Tablet</h3>
                         <p class="product-desc">10-inch Android tablet with stylus</p>
                         <p class="price">KSh 28,999</p>
+                        <div class="product-reviews">
+    <div class="rating">★★★★☆ <span class="rating-count">(24)</span></div>
+    <button class="review-btn" onclick="showReviewModal(1)">Write Review</button>
+</div>
                         <button class="buy-btn" data-product="2">Add to Cart</button>
                     </div>
                 </div>
@@ -72,6 +115,10 @@
                         <h3>Wireless Bluetooth Headphones</h3>
                         <p class="product-desc">Noise cancelling over-ear headphones</p>
                         <p class="price">KSh 4,299</p>
+                        <div class="product-reviews">
+    <div class="rating">★★★★☆ <span class="rating-count">(24)</span></div>
+    <button class="review-btn" onclick="showReviewModal(1)">Write Review</button>
+</div>
                         <button class="buy-btn" data-product="3">Add to Cart</button>
                     </div>
                 </div>
@@ -81,6 +128,10 @@
                         <h3>Modern Coffee Table</h3>
                         <p class="product-desc">Modern glass top coffee table with storage</p>
                         <p class="price">KSh 7,499</p>
+                        <div class="product-reviews">
+    <div class="rating">★★★★☆ <span class="rating-count">(24)</span></div>
+    <button class="review-btn" onclick="showReviewModal(1)">Write Review</button>
+</div>
                         <button class="buy-btn" data-product="4">Add to Cart</button>
                     </div>
                 </div>
@@ -90,6 +141,10 @@
                         <h3>Kenyan Tea Gift Box</h3>
                         <p class="product-desc">Premium Kenyan tea leaves gift package</p>
                         <p class="price">KSh 2,199</p>
+                        <div class="product-reviews">
+    <div class="rating">★★★★☆ <span class="rating-count">(24)</span></div>
+    <button class="review-btn" onclick="showReviewModal(1)">Write Review</button>
+</div>
                         <button class="buy-btn" data-product="5">Add to Cart</button>
                     </div>
                 </div>
@@ -99,11 +154,47 @@
                         <h3>Beaded Jewelry Set</h3>
                         <p class="product-desc">Beautiful handmade African bead jewelry</p>
                         <p class="price">KSh 1,650</p>
+                        <div class="product-reviews">
+    <div class="rating">★★★★☆ <span class="rating-count">(24)</span></div>
+    <button class="review-btn" onclick="showReviewModal(1)">Write Review</button>
+</div>
                         <button class="buy-btn" data-product="6">Add to Cart</button>
                     </div>
                 </div>
             </div>
         </section>
+<!-- Product Reviews Section -->
+<section class="reviews">
+    <h2>Customer Reviews</h2>
+    <div class="reviews-container">
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer">John M.</div>
+                <div class="review-rating">★★★★★</div>
+            </div>
+            <p class="review-text">"Excellent quality products and fast delivery. Highly recommended!"</p>
+            <div class="review-product">Premium Kenyan Coffee</div>
+        </div>
+        
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer">Sarah K.</div>
+                <div class="review-rating">★★★★☆</div>
+            </div>
+            <p class="review-text">"Love my new tablet! Great value for money and works perfectly."</p>
+            <div class="review-product">Samsung Galaxy Tablet</div>
+        </div>
+        
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer">David W.</div>
+                <div class="review-rating">★★★★★</div>
+            </div>
+            <p class="review-text">"The coffee table is exactly as described. Very happy with my purchase!"</p>
+            <div class="review-product">Modern Coffee Table</div>
+        </div>
+    </div>
+</section>
 
         <section class="features">
             <div class="feature">
@@ -185,6 +276,39 @@
     <div class="cart-total">
         <strong>Total: KSh <span id="cartTotal">0</span></strong>
         <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
+    </div>
+</div>
+<!-- User Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-login">&times;</span>
+        <h2>Welcome Back</h2>
+        <form class="login-form">
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="login-options">
+            <p>New customer? <a href="#" onclick="showRegister()">Create account</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- User Register Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close-register">&times;</span>
+        <h2>Create Account</h2>
+        <form class="register-form">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit">Create Account</button>
+        </form>
+        <div class="register-options">
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+        </div>
     </div>
 </div>
 </body>
