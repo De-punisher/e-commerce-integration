@@ -105,6 +105,97 @@ function selectPaymentMethod(method) {
     }
 }
 
+// Product Search Functionality
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const resultsCount = document.getElementById('resultsCount');
+    const productGrid = document.querySelector('.product-grid');
+    
+    let allProducts = [];
+    
+    // Get all products from the page
+    function getAllProducts() {
+        const productElements = document.querySelectorAll('.product');
+        return Array.from(productElements).map(product => ({
+            element: product,
+            name: product.querySelector('h3').textContent.toLowerCase(),
+            description: product.querySelector('p:not(.price)')?.textContent.toLowerCase() || '',
+            category: product.dataset.category || ''
+        }));
+    }
+    
+    // Filter products based on search term
+    function filterProducts(searchTerm) {
+        const term = searchTerm.toLowerCase().trim();
+        
+        if (term === '') {
+            // Show all products
+            allProducts.forEach(item => {
+                item.element.style.display = 'block';
+                item.element.classList.remove('highlight');
+            });
+            resultsCount.textContent = `Showing all ${allProducts.length} products`;
+            return;
+        }
+        
+        const filteredProducts = allProducts.filter(item => 
+            item.name.includes(term) || 
+            item.description.includes(term) ||
+            item.category.includes(term)
+        );
+        
+        // Hide all products first
+        allProducts.forEach(item => {
+            item.element.style.display = 'none';
+            item.element.classList.remove('highlight');
+        });
+        
+        // Show matching products
+        filteredProducts.forEach(item => {
+            item.element.style.display = 'block';
+            item.element.classList.add('highlight');
+        });
+        
+        // Update results count
+        resultsCount.textContent = `Found ${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''} for "${searchTerm}"`;
+    }
+    
+    // Initialize search when page loads
+    function init() {
+        allProducts = getAllProducts();
+        
+        // Search on input (real-time)
+        searchInput.addEventListener('input', (e) => {
+            filterProducts(e.target.value);
+        });
+        
+        // Search on button click
+        searchBtn.addEventListener('click', () => {
+            filterProducts(searchInput.value);
+        });
+        
+        // Search on Enter key
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                filterProducts(searchInput.value);
+            }
+        });
+        
+        console.log('Search system initialized with', allProducts.length, 'products');
+    }
+    
+    // Initialize when DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+}
+
+// Initialize search system
+initializeSearch();
+
 // Cart Functions - SIMPLIFIED AND FIXED
 function addToCart(productId) {
     const product = products[productId];

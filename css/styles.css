@@ -136,6 +136,64 @@ nav {
     border: 2px solid #d4af37;
 }
 
+/* Search Section Styles */
+.search-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.search-bar {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 50px;
+    overflow: hidden;
+    background: white;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    background: transparent;
+}
+
+#searchInput::placeholder {
+    color: #6c757d;
+}
+
+#searchBtn {
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #b8860b, #8b0000);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#searchBtn:hover {
+    background: linear-gradient(135deg, #8b0000, #b8860b);
+    transform: scale(1.05);
+}
+
+.search-results-info {
+    text-align: center;
+    margin-top: 1rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Search highlight effect */
+.product.highlight {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
+    transition: all 0.3s ease;
+}
+
 /* Products section - Luxury Showroom */
 .products {
     max-width: 1200px;
