@@ -82,7 +82,7 @@ nav {
 
 /* Hero section - Wholesale Luxury */
 .hero {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(26, 26, 26, 0.9) 100%), 
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(26, 26, 26, 0.9) 100%),
                 url('https://images.unsplash.com/photo-1607082350899-7e105aa886ae?w=1200&h=600&fit=crop');
     background-size: cover;
     background-position: center;
@@ -233,7 +233,7 @@ nav {
     .filter-buttons {
         gap: 0.5rem;
     }
-    
+
     .filter-btn {
         padding: 0.6rem 1.2rem;
         font-size: 0.85rem;
@@ -530,23 +530,23 @@ footer p {
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .nav-links {
         gap: 1rem;
     }
-    
+
     .hero-content h1 {
         font-size: 2.5rem;
     }
-    
+
     .product-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .payment-methods {
         flex-direction: column;
     }
-    
+
     .features {
         grid-template-columns: 1fr;
     }
@@ -978,11 +978,11 @@ footer p {
         order: 3;
         width: 100%;
     }
-    
+
     .reviews-container {
         grid-template-columns: 1fr;
     }
-    
+
     .review-card {
         padding: 1.5rem;
     }
@@ -1041,7 +1041,7 @@ nav {
         max-width: 300px;
         margin: 0 0.5rem;
     }
-    
+
     .nav-links {
         gap: 0.5rem;
     }
@@ -1052,23 +1052,23 @@ nav {
         flex-wrap: wrap;
         gap: 0.5rem;
     }
-    
+
     .logo {
         font-size: 1.5rem;
         order: 1;
     }
-    
+
     .nav-links {
         order: 2;
         gap: 0.3rem;
     }
-    
+
     .search-container {
         order: 3;
         max-width: 100%;
         margin: 0.5rem 0;
     }
-    
+
     .login-btn,
     .cart-icon {
         padding: 0.3rem 0.8rem !important;
@@ -1193,12 +1193,12 @@ nav {
     .price-filters {
         gap: 0.5rem;
     }
-    
+
     .filter-btn {
         padding: 0.6rem 1rem;
         font-size: 0.8rem;
     }
-    
+
     .filter-stats {
         flex-direction: column;
         gap: 1rem;
