@@ -77,6 +77,36 @@
         </div>
     </div>
 </section>
+<!-- Price & Sort Controls -->
+<section class="price-sort-controls">
+    <div class="container">
+        <div class="controls-grid">
+            <!-- Price Range Filter -->
+            <div class="price-filter">
+                <h4>Filter by Price</h4>
+                <div class="price-range">
+                    <input type="range" id="priceRange" min="0" max="100000" step="1000" value="100000">
+                    <div class="price-labels">
+                        <span>KSh 0</span>
+                        <span id="currentPrice">KSh 100,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort Options -->
+            <div class="sort-options">
+                <h4>Sort by</h4>
+                <select id="sortSelect">
+                    <option value="default">Recommended</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                    <option value="newest">Newest First</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
 
         <section class="products">
             <h2>Featured Products</h2>

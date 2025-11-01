@@ -1016,3 +1016,100 @@ function initializeReviewButtons() {
 window.showReviewModal = showReviewModal;
 window.setRating = setRating;
 window.closeReviewModal = closeReviewModal;
+// Price & Sort Functionality
+function initializePriceSortControls() {
+    const priceRange = document.getElementById('priceRange');
+    const currentPrice = document.getElementById('currentPrice');
+    const sortSelect = document.getElementById('sortSelect');
+    const products = Array.from(document.querySelectorAll('.product'));
+    
+    // Format currency for Kenya
+    function formatCurrency(amount) {
+        return 'KSh ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+    // Update price display
+    function updatePriceDisplay() {
+        const value = parseInt(priceRange.value);
+        currentPrice.textContent = formatCurrency(value);
+    }
+    
+    // Filter by price
+    function filterByPrice() {
+        const maxPrice = parseInt(priceRange.value);
+        
+        products.forEach(product => {
+            const priceElement = product.querySelector('.price');
+            if (priceElement) {
+                const priceText = priceElement.textContent.replace(/[^\d]/g, '');
+                const productPrice = parseInt(priceText) || 0;
+                
+                if (productPrice <= maxPrice) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            }
+        });
+        
+        updateResultsCount();
+    }
+    
+    // Sort products
+    function sortProducts(sortType) {
+        const productGrid = document.querySelector('.product-grid');
+        const visibleProducts = products.filter(p => p.style.display !== 'none');
+        
+        const sortedProducts = [...visibleProducts].sort((a, b) => {
+            const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^\d]/g, '')) || 0;
+            const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^\d]/g, '')) || 0;
+            const nameA = a.querySelector('h3').textContent.toLowerCase();
+            const nameB = b.querySelector('h3').textContent.toLowerCase();
+            
+            switch(sortType) {
+                case 'price-low':
+                    return priceA - priceB;
+                case 'price-high':
+                    return priceB - priceA;
+                case 'name':
+                    return nameA.localeCompare(nameB);
+                case 'newest':
+                    return 0;
+                default:
+                    return 0;
+            }
+        });
+        
+        sortedProducts.forEach(product => {
+            productGrid.appendChild(product);
+        });
+    }
+    
+    // Update results count
+    function updateResultsCount() {
+        const visibleCount = products.filter(p => p.style.display !== 'none').length;
+        const resultsCount = document.getElementById('resultsCount');
+        if (resultsCount) {
+            resultsCount.textContent = `Showing ${visibleCount} product${visibleCount !== 1 ? 's' : ''}`;
+        }
+    }
+    
+    priceRange.addEventListener('input', () => {
+        updatePriceDisplay();
+        filterByPrice();
+    });
+    
+    sortSelect.addEventListener('change', (e) => {
+        sortProducts(e.target.value);
+    });
+    
+    updatePriceDisplay();
+}
+
+// Update main initialization
+function initializeAllFeatures() {
+    initializeSearch();
+    initializeCategoryFilters();
+    initializePriceSortControls();
+    updateSearchWithFilters();
+}
